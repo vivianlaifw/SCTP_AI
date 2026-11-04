@@ -6,7 +6,7 @@
 #
 # The two settings you change are below. Your key goes in Vercel's settings. It never goes in this file.
 
-PROVIDER = "google"
+PROVIDER = "GOOGLE"
 # Change this to "google" if your key is from Google AI Studio.
 
 MODEL = "gemini-3.1-flash-lite"
@@ -25,7 +25,7 @@ import urllib.error
 import urllib.request
 from http.server import BaseHTTPRequestHandler
 
-KEY_NAMES = {"google": "GOOGLE_API_KEY"}
+KEY_NAMES = {"GOOGLE": "GOOGLE_API_KEY"}
 PLACEHOLDER = "your-model-name"
 FACTS_FILE = "site.md"
 RULES_FILE = "rules.md"
