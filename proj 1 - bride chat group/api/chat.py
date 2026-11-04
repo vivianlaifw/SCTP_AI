@@ -26,7 +26,7 @@ import urllib.request
 from http.server import BaseHTTPRequestHandler
 
 KEY_NAMES = {"google": "GOOGLE_API_KEY"}
-PLACEHOLDER = "gemini-3.1-flash-lite"
+PLACEHOLDER = "your-model-name"
 FACTS_FILE = "site.md"
 RULES_FILE = "rules.md"
 MAX_QUESTION = 500          # the longest question, in characters
