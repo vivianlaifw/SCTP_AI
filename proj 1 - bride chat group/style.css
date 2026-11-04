@@ -247,9 +247,117 @@ h2 {
   text-align: center;
 }
 
+.signup__inner {
+  max-width: 680px;
+}
+
 .coming-soon h2,
 .ask h2 {
   margin-bottom: 0.8rem;
+}
+
+.signup__notice {
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.signup__privacy {
+  margin: 0 auto 1.5rem;
+}
+
+.signup__form {
+  display: grid;
+  gap: 1rem;
+  text-align: left;
+}
+
+.signup__field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.signup__field label,
+.signup__marketing {
+  color: var(--deep-navy);
+  font-weight: 700;
+}
+
+.signup__field input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--deep-navy);
+  border-radius: 2px;
+  background: var(--warm-white);
+  color: var(--navy);
+  font: inherit;
+}
+
+.signup__date-control {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.signup__date-control > input:first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.signup__field-error {
+  min-height: 1.6em;
+  margin-bottom: 0;
+  color: #a32121;
+  font-weight: 700;
+}
+
+.signup__date-picker {
+  position: absolute;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.signup__field input:focus-visible,
+.signup__marketing input:focus-visible,
+.signup__submit:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.signup__marketing {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.signup__marketing input {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.35rem;
+  accent-color: var(--deep-navy);
+}
+
+.signup__submit {
+  justify-self: start;
+  font: inherit;
+  cursor: pointer;
+}
+
+.signup__calendar {
+  flex: 0 0 auto;
+  font: inherit;
+  cursor: pointer;
+}
+
+.signup__response {
+  min-height: 1.6em;
+  margin-bottom: 0;
+  color: var(--deep-navy);
+  font-weight: 700;
 }
 
 .coming-soon p:last-child,

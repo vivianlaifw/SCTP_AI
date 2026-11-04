@@ -96,10 +96,40 @@
       </section>
 
       <section class="section coming-soon" id="signup" aria-labelledby="signup-title">
-        <div class="section__inner">
+        <div class="section__inner signup__inner">
           <p class="eyebrow">Your next step</p>
           <h2 id="signup-title">Sign up</h2>
-          <p>Sign-up opens soon.</p>
+          <p class="signup__notice">This is a practice form. It sends nothing.</p>
+          <p class="signup__privacy">
+            We use your first name, email address and wedding date only to reply about joining.
+            Marketing messages go only to people who tick the box.
+          </p>
+          <form class="signup__form" id="signup-form">
+            <div class="signup__field">
+              <label for="first-name">First name</label>
+              <input id="first-name" name="first-name" type="text" autocomplete="off" required>
+            </div>
+            <div class="signup__field">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="text" inputmode="email" autocomplete="email" aria-describedby="email-error" required>
+              <p class="signup__field-error" id="email-error" role="alert" aria-live="polite"></p>
+            </div>
+            <div class="signup__field">
+              <label for="wedding-date">Wedding date</label>
+              <div class="signup__date-control">
+                <input id="wedding-date" name="wedding-date" type="text" inputmode="numeric" placeholder="DD/MM/YY" pattern="[0-9]{2}/[0-9]{2}/[0-9]{2}" title="Enter the date as DD/MM/YY, for example 25/12/27." aria-describedby="wedding-date-error" required>
+                <button class="button signup__calendar" id="open-calendar" type="button">Choose date</button>
+                <input class="signup__date-picker" id="wedding-date-picker" type="date" tabindex="-1" aria-hidden="true">
+              </div>
+              <p class="signup__field-error" id="wedding-date-error" role="alert" aria-live="polite"></p>
+            </div>
+            <label class="signup__marketing">
+              <input name="marketing" type="checkbox">
+              <span>Yes, send me marketing messages</span>
+            </label>
+            <button class="button signup__submit" type="submit">Show practice confirmation</button>
+            <p class="signup__response" id="signup-response" role="status" aria-live="polite"></p>
+          </form>
         </div>
       </section>
 
@@ -107,7 +137,7 @@
         <div class="section__inner">
           <p class="eyebrow">A little help is on its way</p>
           <h2 id="ask-title">Ask us</h2>
-          <p>The chatbot is coming soon.</p>
+          <div id="chatbot"></div>
         </div>
       </section>
     </main>
@@ -116,5 +146,91 @@
       <p class="footer__name">Singapore Brides Chatgroup</p>
       <p>A community for brides-to-be.</p>
     </footer>
+    <script>
+      const datePicker = document.getElementById("wedding-date-picker");
+      const emailInput = document.getElementById("email");
+      const emailError = document.getElementById("email-error");
+      const weddingDate = document.getElementById("wedding-date");
+      const dateError = document.getElementById("wedding-date-error");
+      let emailValidationRequested = false;
+
+      function validateEmail() {
+        const value = emailInput.value.trim();
+        const isInvalid = value.length > 0 &&
+          !/^[^@\s]+@[A-Za-z0-9.-]*[A-Za-z][A-Za-z0-9.-]*\.[A-Za-z]+$/.test(value);
+        emailInput.setCustomValidity(isInvalid ? "Invalid email!" : "");
+        emailError.textContent =
+          emailValidationRequested && isInvalid ? "Invalid email!" : "";
+        return !isInvalid;
+      }
+
+      emailInput.addEventListener("blur", () => {
+        emailValidationRequested = true;
+        validateEmail();
+      });
+      emailInput.addEventListener("input", () => {
+        if (emailValidationRequested) {
+          validateEmail();
+        }
+      });
+      emailInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          emailValidationRequested = true;
+          if (!validateEmail()) {
+            event.preventDefault();
+          }
+        }
+      });
+
+      function validateWeddingDate(value) {
+        const match = /^(\d{2})\/(\d{2})\/(\d{2})$/.exec(value);
+        let isPastDate = false;
+
+        if (match) {
+          const [, day, month, shortYear] = match;
+          const year = 2000 + Number(shortYear);
+          const date = new Date(year, Number(month) - 1, Number(day));
+          const isRealDate =
+            date.getFullYear() === year &&
+            date.getMonth() === Number(month) - 1 &&
+            date.getDate() === Number(day);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          isPastDate = isRealDate && date < today;
+        }
+
+        weddingDate.setCustomValidity(isPastDate ? "Invalid date!" : "");
+        dateError.textContent = isPastDate ? "Invalid date!" : "";
+        return !isPastDate;
+      }
+
+      weddingDate.addEventListener("input", () => validateWeddingDate(weddingDate.value));
+      document.getElementById("open-calendar").addEventListener("click", () => {
+        if (typeof datePicker.showPicker === "function") {
+          datePicker.showPicker();
+        } else {
+          datePicker.click();
+        }
+      });
+      datePicker.addEventListener("change", () => {
+        if (datePicker.value) {
+          const [year, month, day] = datePicker.value.split("-");
+          weddingDate.value = `${day}/${month}/${year.slice(-2)}`;
+          validateWeddingDate(weddingDate.value);
+        }
+      });
+
+      document.getElementById("signup-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        emailValidationRequested = true;
+        if (!validateEmail()) {
+          emailInput.focus();
+          return;
+        }
+        document.getElementById("signup-response").textContent =
+          "Thanks! This practice form sent nothing.";
+      });
+    </script>
+    <script src="chatbot.js"></script>
   </body>
 </html>
