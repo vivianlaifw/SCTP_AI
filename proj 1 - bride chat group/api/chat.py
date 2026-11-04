@@ -7,9 +7,11 @@
 # The two settings you change are below. Your key goes in Vercel's settings. It never goes in this file.
 
 PROVIDER = "google"
+PROVIDER = "groq"
 # Change this to "google" if your key is from Google AI Studio.
 
 MODEL = "gemini-3.1-flash-lite"
+MODEL = "openai/gpt-oss-20b"
 # The trainer gives the model name in class. Copy it exactly, inside the quote marks.
 
 
