@@ -128,7 +128,7 @@
               <span>Yes, send me marketing messages</span>
             </label>
             <button class="button signup__submit" type="submit">Show practice confirmation</button>
-            <p class="signup__response" id="signup-response" role="status" aria-live="polite"></p>
+            <p class="signup__response" id="signup-response" role="status" aria-live="polite" hidden></p>
           </form>
         </div>
       </section>
@@ -145,6 +145,7 @@
     <footer class="footer">
       <p class="footer__name">Singapore Brides Chatgroup</p>
       <p>A community for brides-to-be.</p>
+      <p><a href="privacy.html">Privacy</a></p>
     </footer>
     <script>
       const datePicker = document.getElementById("wedding-date-picker");
@@ -152,6 +153,7 @@
       const emailError = document.getElementById("email-error");
       const weddingDate = document.getElementById("wedding-date");
       const dateError = document.getElementById("wedding-date-error");
+      const signupResponse = document.getElementById("signup-response");
       let emailValidationRequested = false;
 
       function validateEmail() {
@@ -227,8 +229,9 @@
           emailInput.focus();
           return;
         }
-        document.getElementById("signup-response").textContent =
-          "Thanks! This practice form sent nothing.";
+        signupResponse.textContent = "Practice confirmation: Thanks! This form did not send or save your details.";
+        signupResponse.hidden = false;
+        signupResponse.scrollIntoView({ block: "nearest" });
       });
     </script>
     <script src="chatbot.js"></script>

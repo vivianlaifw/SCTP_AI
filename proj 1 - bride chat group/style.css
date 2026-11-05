@@ -354,10 +354,16 @@ h2 {
 }
 
 .signup__response {
-  min-height: 1.6em;
-  margin-bottom: 0;
+  margin: 0;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--deep-navy);
+  background: var(--warm-white);
   color: var(--deep-navy);
   font-weight: 700;
+}
+
+.signup__response[hidden] {
+  display: none;
 }
 
 .coming-soon p:last-child,
@@ -381,6 +387,10 @@ h2 {
 
 .footer p {
   margin-bottom: 0.15rem;
+}
+
+.footer a {
+  color: inherit;
 }
 
 .footer__name {
